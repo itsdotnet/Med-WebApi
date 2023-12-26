@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2B112301-C070-4850-8218-AA4C90720350}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medic.WebApi", "src\Medic.WebApi\Medic.WebApi.csproj", "{0F7C7A3B-CEC5-4ED0-8F49-11C7DF63CB84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F7C7A3B-CEC5-4ED0-8F49-11C7DF63CB84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F7C7A3B-CEC5-4ED0-8F49-11C7DF63CB84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F7C7A3B-CEC5-4ED0-8F49-11C7DF63CB84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F7C7A3B-CEC5-4ED0-8F49-11C7DF63CB84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0F7C7A3B-CEC5-4ED0-8F49-11C7DF63CB84} = {2B112301-C070-4850-8218-AA4C90720350}
+	EndGlobalSection
+EndGlobal
