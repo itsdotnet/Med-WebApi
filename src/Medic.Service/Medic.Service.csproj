@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="DTOs\Feedbacks\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Medic.DataAccess\Medic.DataAccess.csproj" />
+    </ItemGroup>
+
+</Project>
