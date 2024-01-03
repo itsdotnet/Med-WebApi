@@ -11,6 +11,8 @@ public class AppDbContext : DbContext
     
     public DbSet<User> Users { get; set; }
     
+    public DbSet<Message> Messages { get; set; }
+    
     public DbSet<Feedback> Feedbacks { get; set; }
     
     public DbSet<Doctor> Doctors { get; set; }

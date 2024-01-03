@@ -10,4 +10,12 @@
       <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DTOs\Feedbacks\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Medic.DataAccess\Medic.DataAccess.csproj" />
+    </ItemGroup>
+
 </Project>

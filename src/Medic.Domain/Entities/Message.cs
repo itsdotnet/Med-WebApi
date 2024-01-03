@@ -2,7 +2,7 @@ using Medic.Domain.Commons;
 
 namespace Medic.Domain.Entities;
 
-public class Massage : Auditable
+public class Message : Auditable
 {
     public long UserId { get; set; }
     public User User { get; set; }

@@ -1,10 +1,11 @@
-using Medic.Domain.Commons;
 using Medic.Domain.Enums;
+using Medic.Service.DTOs.Attachments;
 
-namespace Medic.Domain.Entities;
+namespace Medic.Service.DTOs.Doctors;
 
-public class Doctor : Auditable
+public class DoctorResultDto
 {
+    public long Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
@@ -14,6 +15,5 @@ public class Doctor : Auditable
     public string ContactNumber { get; set; }
     public string Email { get; set; }
     
-    public long AttachmentId { get; set; }
-    public Attachment Attachment { get; set; } 
+    public AttachmentResultDto  AttachmentResultDto { get; set; }  
 }
