@@ -4,6 +4,6 @@ namespace Medic.Service.Interfaces;
 
 public interface IAuthService
 {
-    Task<string> Login(string email, string password);
-    Task<string> Register(UserCreationDto dto);
+    Task<string> LoginAsync(string email, string password);
+    Task<string> RegisterAsync(UserCreationDto dto);
 }

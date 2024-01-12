@@ -14,4 +14,6 @@ public interface IUnitOfWork : IDisposable
     IRepository<Message> MassageRepository { get; }
     
     IRepository<Attachment> AttachmentRepository { get; }
+    
+    Task<bool> SaveAsync();
 }
