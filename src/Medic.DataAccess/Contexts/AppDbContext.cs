@@ -1,6 +1,5 @@
 using Medic.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
 
 namespace Medic.DataAccess.Contexts;
 
@@ -10,6 +9,12 @@ public class AppDbContext : DbContext
     { }
     
     public DbSet<User> Users { get; set; }
+    
+    public DbSet<Hospital> Hospitals { get; set; }
+    
+    public DbSet<Report> Reports { get; set; } 
+    
+    public DbSet<Book> Bookings { get; set; }
     
     public DbSet<Message> Messages { get; set; }
     

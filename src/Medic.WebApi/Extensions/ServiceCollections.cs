@@ -15,34 +15,37 @@ public static class ServiceCollections
     public static void AddServices(this IServiceCollection services)
     { services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IDoctorService, DoctorService>();
         services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddAutoMapper(typeof(MappingProfile));
+        services.AddMemoryCache();
     }
-
+    
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddAuthentication(x =>
-        {
-            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(o =>
-        {
-            var key = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
-            o.SaveToken = true;
-            o.TokenValidationParameters = new TokenValidationParameters
+        var key = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
+
+        services.AddAuthentication(options =>
             {
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = configuration["JWT:Issuer"],
-                ValidAudience = configuration["JWT:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(key)
-            };
-        });
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+            });
     }
 
     public static void ConfigureSwagger(this IServiceCollection services)

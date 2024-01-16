@@ -15,7 +15,7 @@ public class AuthController : BaseController
         this.authService = authService;
     }
 
-    [HttpPost]
+    [HttpPost("login")]
     [AllowAnonymous]
     public async Task<IActionResult> AuhenticateAsync(string email, string password)
     {
@@ -34,7 +34,7 @@ public class AuthController : BaseController
         });  
     }
 
-    [HttpPost]
+    [HttpPost("register")]
     [AllowAnonymous]
     public async Task<IActionResult> RegisterAsync(UserCreationDto dto)
     {

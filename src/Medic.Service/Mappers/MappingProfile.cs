@@ -1,6 +1,7 @@
 using AutoMapper;
 using Medic.Domain.Entities;
 using Medic.Service.DTOs.Doctors;
+using Medic.Service.DTOs.Feedbacks;
 using Medic.Service.DTOs.Messages;
 using Medic.Service.DTOs.Users;
 
@@ -25,5 +26,9 @@ public class MappingProfile : Profile
         //Message
         CreateMap<Message, MessageResultDto>().ReverseMap();
         CreateMap<MessageCreationDto, Message>().ReverseMap();
+        
+        // Feedback
+        CreateMap<Feedback, FeedbackResultDto>().ReverseMap();
+        CreateMap<FeedbackCreationDto, Feedback>().ReverseMap();
     }
 }
