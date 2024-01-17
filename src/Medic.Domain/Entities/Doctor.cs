@@ -13,6 +13,8 @@ public class Doctor : Auditable
     public string Address { get; set; }
     public string ContactNumber { get; set; }
     public string Email { get; set; }
+    public long HospitalId { get; set; }
+    public Hospital Hospital { get; set; }
     
     public long AttachmentId { get; set; }
     public Attachment Attachment { get; set; } 

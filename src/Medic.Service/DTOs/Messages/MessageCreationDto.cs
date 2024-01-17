@@ -7,11 +7,3 @@ public class MessageCreationDto
     
     public string Message { get; set; }
 }
-
-public class MessageResultDto
-{
-    public long User { get; set; }
-    public long Doctor { get; set; }
-    
-    public string Message { get; set; }
-}
