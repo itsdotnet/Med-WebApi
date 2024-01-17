@@ -17,10 +17,16 @@ public class UnitOfWork : IUnitOfWork
         FeedbackRepository = new Repository<Feedback>(_dbContext);
         MassageRepository = new Repository<Message>(_dbContext);
         AttachmentRepository = new Repository<Attachment>(_dbContext);
+        HospitalRepository = new Repository<Hospital>(_dbContext);
+        BookRepository = new Repository<Book>(_dbContext);
+        ReportRepository = new Repository<Report>(_dbContext);
     }
 
     public IRepository<Doctor> DoctorRepository { get; }
     public IRepository<User> UserRepository { get; }
+    public IRepository<Hospital> HospitalRepository { get; }
+    public IRepository<Book> BookRepository { get; }
+    public IRepository<Report> ReportRepository { get; }
     public IRepository<Feedback> FeedbackRepository { get; }
     public IRepository<Message> MassageRepository { get; }
     public IRepository<Attachment> AttachmentRepository { get; }

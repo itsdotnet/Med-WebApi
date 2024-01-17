@@ -9,6 +9,12 @@ public interface IUnitOfWork : IDisposable
     
     IRepository<User> UserRepository { get; }
     
+    IRepository<Hospital> HospitalRepository { get; }
+    
+    IRepository<Book> BookRepository { get; }
+    
+    IRepository<Report> ReportRepository { get; }
+    
     IRepository<Feedback> FeedbackRepository { get; }
     
     IRepository<Message> MassageRepository { get; }
