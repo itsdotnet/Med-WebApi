@@ -10,5 +10,7 @@ public class Message : Auditable
     public long DoctorId { get; set; }
     public Doctor Doctor { get; set; }
 
+    // public bool IsFromUser { get; set; }
+    
     public string Text { get; set; }
 }

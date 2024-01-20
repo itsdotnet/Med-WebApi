@@ -1,9 +1,12 @@
 using AutoMapper;
 using Medic.Domain.Entities;
-using Medic.Service.DTOs.Doctors;
-using Medic.Service.DTOs.Feedbacks;
-using Medic.Service.DTOs.Messages;
 using Medic.Service.DTOs.Users;
+using Medic.Service.DTOs.Reports;
+using Medic.Service.DTOs.Doctors;
+using Medic.Service.DTOs.Messages;
+using Medic.Service.DTOs.Bookings;
+using Medic.Service.DTOs.Hospitals;
+using Medic.Service.DTOs.Feedbacks;
 
 namespace Medic.Service.Mappers;
 
@@ -30,5 +33,20 @@ public class MappingProfile : Profile
         // Feedback
         CreateMap<Feedback, FeedbackResultDto>().ReverseMap();
         CreateMap<FeedbackCreationDto, Feedback>().ReverseMap();
+        
+        //Hospital
+        CreateMap<Hospital,HospitalCreationDto>().ReverseMap();
+        CreateMap<Hospital, HospitalUpdateDto>().ReverseMap();
+        CreateMap<HospitalResultDto, Hospital>().ReverseMap();
+        
+        //Book
+        CreateMap<Book, BookCreationDto>().ReverseMap();
+        CreateMap<Book, BookUpdateDto>().ReverseMap();
+        CreateMap<BookResultDto, Book>().ReverseMap();
+        
+        //Report
+        CreateMap<Report, ReportCreationDto>().ReverseMap();
+        CreateMap<Report, ReportUpdateDto>().ReverseMap();
+        CreateMap<ReportResultDto, Report>().ReverseMap();
     }
 }

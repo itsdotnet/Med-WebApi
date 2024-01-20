@@ -15,14 +15,20 @@ public class UnitOfWork : IUnitOfWork
         DoctorRepository = new Repository<Doctor>(_dbContext);
         UserRepository = new Repository<User>(_dbContext);
         FeedbackRepository = new Repository<Feedback>(_dbContext);
-        MassageRepository = new Repository<Message>(_dbContext);
+        MessageRepository = new Repository<Message>(_dbContext);
         AttachmentRepository = new Repository<Attachment>(_dbContext);
+        HospitalRepository = new Repository<Hospital>(_dbContext);
+        BookRepository = new Repository<Book>(_dbContext);
+        ReportRepository = new Repository<Report>(_dbContext);
     }
 
     public IRepository<Doctor> DoctorRepository { get; }
     public IRepository<User> UserRepository { get; }
+    public IRepository<Hospital> HospitalRepository { get; }
+    public IRepository<Book> BookRepository { get; }
+    public IRepository<Report> ReportRepository { get; }
     public IRepository<Feedback> FeedbackRepository { get; }
-    public IRepository<Message> MassageRepository { get; }
+    public IRepository<Message> MessageRepository { get; }
     public IRepository<Attachment> AttachmentRepository { get; }
     
     public void Dispose()

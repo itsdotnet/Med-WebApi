@@ -16,11 +16,18 @@ public static class ServiceCollections
     { services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IAttachmentService, AttachmentService>();
+        services.AddScoped<IBookingService, BookingService>();
+        services.AddScoped<IDoctorService, DoctorService>();
+        services.AddScoped<IFeedbackService, FeedbackService>();
+        services.AddScoped<IHospitalService, HospitalService>();
+        services.AddScoped<IMessageService, MessageService>();
+        services.AddScoped<IReportService, ReportService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddMemoryCache();
     }
+    
     
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
     {
@@ -50,31 +57,32 @@ public static class ServiceCollections
 
     public static void ConfigureSwagger(this IServiceCollection services)
     {
-        services.AddSwaggerGen(setup =>
+        services.AddSwaggerGen(option =>
         {
-            // Include 'SecurityScheme' to use JWT Authentication
-            var jwtSecurityScheme = new OpenApiSecurityScheme
+            option.SwaggerDoc("v1", new OpenApiInfo { Title = "Medic API", Version = "v1" });
+            option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                BearerFormat = "JWT",
-                Name = "JWT Authentication",
                 In = ParameterLocation.Header,
+                Description = "Please enter a valid token",
+                Name = "Authorization",
                 Type = SecuritySchemeType.Http,
-                Scheme = JwtBearerDefaults.AuthenticationScheme,
-                Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
-
-                Reference = new OpenApiReference
+                BearerFormat = "JWT",
+                Scheme = "Bearer"
+            });
+            option.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
                 {
-                    Id = JwtBearerDefaults.AuthenticationScheme,
-                    Type = ReferenceType.SecurityScheme
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type=ReferenceType.SecurityScheme,
+                            Id="Bearer"
+                        }
+                    },
+                    new string[]{}
                 }
-            };
-
-            setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-
-            setup.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    { jwtSecurityScheme, Array.Empty<string>() }
-                });
+            });
         });
     }
 }
