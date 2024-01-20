@@ -38,11 +38,18 @@ public class AuthController : BaseController
     [AllowAnonymous]
     public async Task<IActionResult> RegisterAsync(UserCreationDto dto)
     {
-        return Ok(new Response
+        if (Validator.IsValidEmail(dto.Email))
+            return Ok(new Response
+            {
+                StatusCode = 200,
+                Message = "Success",
+                Data = await this.authService.RegisterAsync(dto)
+            });
+
+        return BadRequest(new Response
         {
-            StatusCode = 200,
-            Message = "Success",
-            Data = await this.authService.RegisterAsync(dto)
+            StatusCode = 400,
+            Message = "Email is not valid"
         });
     }
 }

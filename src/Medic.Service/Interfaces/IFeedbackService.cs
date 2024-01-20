@@ -4,8 +4,8 @@ namespace Medic.Service.Interfaces;
 
 public interface IFeedbackService
 {
-    Task<bool> DeleteAsync(int id);
-    Task<FeedbackResultDto> GetByIdAsync(int id);
+    Task<bool> DeleteAsync(long id);
+    Task<FeedbackResultDto> GetByIdAsync(long id);
     Task<IEnumerable<FeedbackResultDto>> GetAllAsync();
     Task<IEnumerable<FeedbackResultDto>> GetByUserAsync(long userId);
     Task<IEnumerable<FeedbackResultDto>> GetByDoctorAsync(long doctorId);

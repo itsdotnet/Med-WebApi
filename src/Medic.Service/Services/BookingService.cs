@@ -73,18 +73,25 @@ public class BookingService : IBookingService
 
     public async Task<BookResultDto> CreateAsync(BookCreationDto bookingCreationDto)
     {
-        // Add any validation or business logic specific to booking creation
+        var existBooking = await _unitOfWork.BookRepository.SelectAsync(x => x.DoctorId == bookingCreationDto.DoctorId);
+        
+        if (existBooking is not null)
+        {
+            if (existBooking.From > bookingCreationDto.From && existBooking.To < bookingCreationDto.From)
+            {
+                throw new AlreadyExistException("This time is already booked");
+            }
 
-        // Map BookCreationDto to Booking entity
+            if (existBooking.From > bookingCreationDto.To && existBooking.To < bookingCreationDto.To)
+            {
+                throw new AlreadyExistException("This time is already booked");
+            }
+        }   
+        
         var newBooking = _mapper.Map<Book>(bookingCreationDto);
 
-        // Add the new Booking entity to the repository
         await _unitOfWork.BookRepository.AddAsync(newBooking);
-
-        // Save changes in the unit of work
         await _unitOfWork.SaveAsync();
-
-        // Map the created Booking entity to BookResultDto
         var createdBookingDto = _mapper.Map<BookResultDto>(newBooking);
 
         return createdBookingDto;
@@ -99,20 +106,11 @@ public class BookingService : IBookingService
             throw new NotFoundException("Booking not found");
         }
 
-        // Map properties from BookUpdateDto to the existing Booking entity
         _mapper.Map(bookingUpdateDto, existingBooking);
 
-        // Add any additional update logic here, if needed
-
-        // Update the Booking entity in the repository
         await _unitOfWork.BookRepository.UpdateAsync(existingBooking);
-
-        // Save changes in the unit of work
         await _unitOfWork.SaveAsync();
+        return _mapper.Map<BookResultDto>(existingBooking);
 
-        // Map the updated Booking entity to BookResultDto
-        var updatedBookingDto = _mapper.Map<BookResultDto>(existingBooking);
-
-        return updatedBookingDto;
     }
 }

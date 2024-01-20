@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddSwaggerGen();
 
 // CustomServices
 
@@ -23,13 +23,12 @@ builder.Services.AddServices();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
 
 // JWT
 
 builder.Services.AddJwt(builder.Configuration);
+
+builder.Services.ConfigureSwagger();
 
 // Logger(serilog)
 
@@ -37,6 +36,7 @@ var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
     .CreateLogger();
+
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
@@ -51,12 +51,16 @@ builder.Services.AddControllers(options =>
 
 PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
+var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

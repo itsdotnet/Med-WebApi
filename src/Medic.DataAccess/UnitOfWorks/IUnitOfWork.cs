@@ -17,7 +17,7 @@ public interface IUnitOfWork : IDisposable
     
     IRepository<Feedback> FeedbackRepository { get; }
     
-    IRepository<Message> MassageRepository { get; }
+    IRepository<Message> MessageRepository { get; }
     
     IRepository<Attachment> AttachmentRepository { get; }
     
