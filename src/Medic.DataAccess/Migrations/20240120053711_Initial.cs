@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -91,7 +91,7 @@ namespace Medic.DataAccess.Migrations
                     ContactNumber = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     HospitalId = table.Column<long>(type: "bigint", nullable: false),
-                    AttachmentId = table.Column<long>(type: "bigint", nullable: false),
+                    AttachmentId = table.Column<long>(type: "bigint", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -103,8 +103,7 @@ namespace Medic.DataAccess.Migrations
                         name: "FK_Doctors_Attachments_AttachmentId",
                         column: x => x.AttachmentId,
                         principalTable: "Attachments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Doctors_Hospitals_HospitalId",
                         column: x => x.HospitalId,

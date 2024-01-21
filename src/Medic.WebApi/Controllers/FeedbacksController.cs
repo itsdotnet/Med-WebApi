@@ -81,7 +81,7 @@ public class FeedbacksController : BaseController
         });
     }
 
-    [HttpGet("get-bet-doctor/{doctorId}")]
+    [HttpGet("get-by-doctor/{doctorId}")]
     public async Task<IActionResult> GetFeedbacksByDoctor(long doctorId)
     {
         var feedbacks = await _feedbackService.GetByDoctorAsync(doctorId);

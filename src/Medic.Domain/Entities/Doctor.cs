@@ -16,6 +16,6 @@ public class Doctor : Auditable
     public long HospitalId { get; set; }
     public Hospital Hospital { get; set; }
     
-    public long AttachmentId { get; set; }
+    public long? AttachmentId { get; set; }
     public Attachment Attachment { get; set; } 
 }

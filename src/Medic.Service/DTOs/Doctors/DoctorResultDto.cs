@@ -1,5 +1,6 @@
 using Medic.Domain.Enums;
 using Medic.Service.DTOs.Attachments;
+using Medic.Service.DTOs.Hospitals;
 
 namespace Medic.Service.DTOs.Doctors;
 
@@ -14,6 +15,8 @@ public class DoctorResultDto
     public string Address { get; set; }
     public string ContactNumber { get; set; }
     public string Email { get; set; }
+    
+    public HospitalResultDto Hospital { get; set; }
     
     public AttachmentResultDto  AttachmentResultDto { get; set; }  
 }

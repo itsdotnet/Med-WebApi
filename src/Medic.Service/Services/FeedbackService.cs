@@ -31,7 +31,8 @@ public class FeedbackService : IFeedbackService
 
     public async Task<FeedbackResultDto> GetByIdAsync(long id)
     {
-        var feedback = await _unitOfWork.FeedbackRepository.SelectAsync(q => q.Id == id);
+        var feedback = await _unitOfWork.FeedbackRepository
+            .SelectAsync(q => q.Id == id, includes: new string[] { "User", "Doctor"});
 
         if (feedback is null)
             throw new NotFoundException("Feedback not found");
@@ -41,7 +42,8 @@ public class FeedbackService : IFeedbackService
 
     public async Task<IEnumerable<FeedbackResultDto>> GetAllAsync()
     {
-        var feedbacks = _unitOfWork.FeedbackRepository.SelectAll();
+        var feedbacks = _unitOfWork.FeedbackRepository
+            .SelectAll(includes: new string[] { "User", "Doctor"});
 
         return _mapper.Map<IEnumerable<FeedbackResultDto>>(feedbacks);
     }
@@ -54,7 +56,8 @@ public class FeedbackService : IFeedbackService
         if (existUser is null)
             throw new NotFoundException("User not found with this ID");
 
-        var feedbacks = _unitOfWork.FeedbackRepository.SelectAll(q => q.UserId == userId);
+        var feedbacks = _unitOfWork.FeedbackRepository
+            .SelectAll(q => q.UserId == userId, new string[] { "User", "Doctor"});
 
         return _mapper.Map<IEnumerable<FeedbackResultDto>>(feedbacks);
     }
@@ -67,7 +70,8 @@ public class FeedbackService : IFeedbackService
         if (existDoctor is null)
             throw new NotFoundException("Doctor not found with this ID");
 
-        var feedbacks = _unitOfWork.FeedbackRepository.SelectAll(q => q.DoctorId == doctorId);
+        var feedbacks = _unitOfWork.FeedbackRepository
+            .SelectAll(q => q.DoctorId == doctorId, includes: new string[] { "User", "Doctor"});
         return _mapper.Map<IEnumerable<FeedbackResultDto>>(feedbacks);
     }
 
