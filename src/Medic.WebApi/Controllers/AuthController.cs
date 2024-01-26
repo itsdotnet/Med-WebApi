@@ -15,41 +15,96 @@ public class AuthController : BaseController
         this.authService = authService;
     }
 
-    [HttpPost("login")]
-    [AllowAnonymous]
-    public async Task<IActionResult> AuhenticateAsync(string email, string password)
-    {
-        if (Validator.IsValidEmail(email))
-            return Ok(new Response
-            {
-                StatusCode = 200,
-                Message = "Success",
-                Data = await this.authService.LoginAsync(email, password)
-            });
-
-        return BadRequest(new Response
-        {
-            StatusCode = 400,
-            Message = "Email is not valid"
-        });  
-    }
-
     [HttpPost("register")]
     [AllowAnonymous]
-    public async Task<IActionResult> RegisterAsync(UserCreationDto dto)
+    public async Task<IActionResult> RegisterAsync(UserCreationDto registerDto)
     {
-        if (Validator.IsValidEmail(dto.Email))
-            return Ok(new Response
+        var serviceResult = await authService.RegisterAsync(registerDto);
+        if (Validator.IsValidEmail(registerDto.Email))
+        {        
+            return Ok(new Response()
             {
                 StatusCode = 200,
-                Message = "Success",
-                Data = await this.authService.RegisterAsync(dto)
+                Message = "User cached successfully",
+                Data = $"Cached for {serviceResult} minutes"
             });
-
-        return BadRequest(new Response
+        }
+        else
         {
-            StatusCode = 400,
-            Message = "Email is not valid"
+            return BadRequest(new Response()
+            {
+                StatusCode = 400,
+                Message = "Invalid email"
+            });
+        }
+    }
+
+
+    [HttpPost("register/send-code")]
+    [AllowAnonymous]
+    public async Task<IActionResult> SendCodeRegisterAsync(string mail)
+    {
+        var serviceResult = await authService.SendCodeForRegisterAsync(mail);
+        return Ok(new Response()
+        {
+            StatusCode = 200,
+            Message = "Code sent successfully",
+            Data = serviceResult
         });
+    }
+    
+
+    [HttpPost("register/verify")]
+    [AllowAnonymous]
+    public async Task<IActionResult> VerifyRegisterAsync(VerifyModel model)
+    {
+        var serviceResult = await authService.VerifyRegisterAsync(model.Email, model.Code);
+        if (serviceResult.Result == false)
+        {
+            return BadRequest(new Response()
+            {
+                StatusCode = 401,
+                Message = "Invalid code"
+            });
+        }
+        return Ok(new Response()
+        {
+            StatusCode = 200,
+            Message = "User verfied successfully",
+            Data = serviceResult.Token
+        });
+    }
+
+
+    [HttpPost("login")]
+    [AllowAnonymous]
+    public async Task<IActionResult> LoginAsync(LoginModel model)
+    {
+
+        if (Validator.IsValidEmail(model.Email))    
+        {
+            var serviceResult = await authService.LoginAsync(model.Email, model.Password);
+            if(serviceResult.Result)
+                return Ok(new Response()
+                {
+                    StatusCode = 200,
+                    Message = "Login successful",
+                    Data = serviceResult.Token
+                });
+            else
+                return BadRequest(new Response()
+                {
+                    StatusCode = 401,
+                    Message = "Invalid password"
+                });
+        }
+        else
+        {
+            return BadRequest(new Response()
+            {
+                StatusCode = 400,
+                Message = "Invalid email"
+            });
+        }
     }
 }

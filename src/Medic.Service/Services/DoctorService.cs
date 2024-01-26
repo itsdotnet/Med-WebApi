@@ -1,9 +1,9 @@
 using AutoMapper;
-using Medic.DataAccess.UnitOfWorks;
 using Medic.Domain.Entities;
-using Medic.Service.DTOs.Doctors;
 using Medic.Service.Exceptions;
 using Medic.Service.Interfaces;
+using Medic.Service.DTOs.Doctors;
+using Medic.DataAccess.UnitOfWorks;
 
 namespace Medic.Service.Services;
 

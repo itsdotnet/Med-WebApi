@@ -23,6 +23,8 @@ public static class ServiceCollections
         services.AddScoped<IMessageService, MessageService>();
         services.AddScoped<IReportService, ReportService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IMailSender, MailSender>();
+        services.AddScoped<ITokenService, TokenService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddMemoryCache();
@@ -31,7 +33,7 @@ public static class ServiceCollections
     
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
     {
-        var key = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
+        var key = Encoding.UTF8.GetBytes(configuration["JWT:SecurityKey"]);
 
         services.AddAuthentication(options =>
             {
