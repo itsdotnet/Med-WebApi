@@ -11,6 +11,7 @@ public class DoctorUpdateDto
     public Gender Gender { get; set; }
     public string Specialization { get; set; }
     public string Address { get; set; }
+    public long HospitalId { get; set; }
     public string ContactNumber { get; set; }
     public string Email { get; set; }
 }

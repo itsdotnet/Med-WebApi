@@ -60,8 +60,6 @@ public class HospitalService : IHospitalService
 
     public async Task<HospitalResultDto> CreateAsync(HospitalCreationDto hospitalCreationDto)
     {
-        hospitalCreationDto.Name = hospitalCreationDto.Name.Trim().ToLower();
-
         var existingHospital = await _unitOfWork.HospitalRepository.SelectAsync(q => q.Name == hospitalCreationDto.Name);
 
         if (existingHospital is not null)

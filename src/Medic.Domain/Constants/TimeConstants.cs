@@ -6,5 +6,4 @@ public static class TimeConstants
 
     public static DateTime GetNow()
         => DateTime.UtcNow.AddHours(UTC);
-    
 }
