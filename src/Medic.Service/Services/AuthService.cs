@@ -99,6 +99,7 @@ public class AuthService : IAuthService
                     {
                         var user = await _unitOfWork.UserRepository.SelectAsync(x => x.Email == mail.ToLower());
                         string token = _tokenService.GenerateToken(user);
+                        //_memoryCache.Remove(REGISTER_CACHE_KEY + mail);
                         return (Result: true, Token: token);
                     }
                     else return (Result: false, Token: "");
