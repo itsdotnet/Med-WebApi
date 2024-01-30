@@ -1,28 +1,22 @@
-using Medic.DataAccess.Contexts;
+using Serilog;
+using Serilog.Events;
 using Medic.Service.Helpers;
 using Medic.WebApi.Extensions;
 using Medic.WebApi.Middlewares;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Medic.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 // Database
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddSwaggerGen();
 
 // CustomServices
 
 builder.Services.AddServices();
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
 
 // JWT
 
@@ -32,13 +26,25 @@ builder.Services.ConfigureSwagger();
 
 // Logger(serilog)
 
+/*
+var logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs/program.log", rollingInterval: RollingInterval.Day)
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .CreateLogger();*/
+
+/*
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
-    .CreateLogger();
+    .CreateLogger();*/
 
+/*
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
+*/
 
 // Lowercase route
 
@@ -50,6 +56,9 @@ builder.Services.AddControllers(options =>
 // Web root Path
 
 PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
