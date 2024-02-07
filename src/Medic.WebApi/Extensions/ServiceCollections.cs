@@ -86,5 +86,16 @@ public static class ServiceCollections
                 }
             });
         });
+        
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+        });
     }
 }
