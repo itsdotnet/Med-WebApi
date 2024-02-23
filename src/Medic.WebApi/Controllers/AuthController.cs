@@ -58,7 +58,7 @@ public class AuthController : BaseController
     [AllowAnonymous]
     public async Task<IActionResult> VerifyRegisterAsync(VerifyModel model)
     {
-        var serviceResult = await authService.VerifyRegisterAsync(model.Email, model.Code);
+        var serviceResult = await authService.VerifyRegisterAsync(model.Email, int.Parse(model.Code));
         if (serviceResult.Result == false)
         {
             return BadRequest(new Response()
