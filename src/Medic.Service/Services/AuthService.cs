@@ -86,6 +86,8 @@ public class AuthService : IAuthService
 
     public async Task<(bool Result, string Token)> VerifyRegisterAsync(string mail, int code)
     {
+        if (_unitOfWork.UserRepository.SelectAsync(x => x.Email == mail) is not null)
+            throw new AlreadyExistException("This user already registered");
         if(_memoryCache.TryGetValue(REGISTER_CACHE_KEY + mail, out UserCreationDto dto))
         {
             if(_memoryCache.TryGetValue(VERIFY_REGISTER_CACHE_KEY + mail, out UserVerficationDto verificationDto))
