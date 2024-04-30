@@ -11,7 +11,7 @@ namespace Medic.Service.Services;
 public class MailSender : IMailSender
 {
     private readonly string _myMail = "eiscocyber@gmail.com";
-    private readonly string _password = "rkhzgzreeqhzmaul";
+    private readonly string _password = "niek npnj wxrq ajmj";
     public async Task<bool> SendAsync(EmailMessage message)
     {
         try
