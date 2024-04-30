@@ -1,8 +1,12 @@
+using System.Text.Json.Serialization;
 using Medic.Service.DTOs.Users;
 using Medic.WebApi.Models;
 using Medic.Service.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Medic.Service.Interfaces;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 namespace Medic.WebApi.Controllers;
 
@@ -69,6 +73,33 @@ public class AuthController : BaseController
                 Message = "Invalid email"
             });
         }
+    }
+
+    [HttpPost("login-google")]
+    [AllowAnonymous]
+    public async Task LoginGoogle()
+    {
+        await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme,
+            new AuthenticationProperties()
+            {
+                RedirectUri = Url.Action("GoogleResponse")
+            });
+    }
+    
+    [HttpPost("google-response")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GoogleResponse()
+    {
+        var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        var claims = result.Principal.Identities.FirstOrDefault().Claims.Select(c => new
+        {
+            c.Issuer,
+            c.OriginalIssuer,
+            c.Type,
+            c.Value
+        });
+        JsonResult s = new JsonResult(claims);
+        return Ok(claims);
     }
 
     //
