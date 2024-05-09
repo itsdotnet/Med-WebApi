@@ -13,7 +13,29 @@ public class UsersController : BaseController
     public UsersController(IUserService userService)
     {
         this.userService = userService;
-    }   
+    }
+    
+    [HttpPut("create")]
+    public async Task<IActionResult> CreateAsync(UserCreationDto dto)
+    {
+        
+        var nameValid = Validator.IsValidName(dto.Firstname);
+        var surnameValid = Validator.IsValidName(dto.Lastname);
+
+        if (nameValid && surnameValid)
+            return Ok(new Response
+            {
+                StatusCode = 200,
+                Message = "Success",
+                Data = await this.userService.CreateAsync(dto)
+            });
+
+        return BadRequest(new Response
+        {
+            StatusCode = 400,
+            Message = "Invalid Information",
+        });
+    }
     
     [HttpPut("update")]
     public async Task<IActionResult> PutAsync(UserUpdateDto dto)
