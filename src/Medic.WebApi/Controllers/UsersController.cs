@@ -15,7 +15,7 @@ public class UsersController : BaseController
         this.userService = userService;
     }
     
-    [HttpPut("create")]
+    [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(UserCreationDto dto)
     {
         
