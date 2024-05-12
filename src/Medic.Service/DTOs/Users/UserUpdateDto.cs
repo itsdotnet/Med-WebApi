@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace Medic.Service.DTOs.Users;
 
 public class UserUpdateDto
@@ -6,4 +8,5 @@ public class UserUpdateDto
     public string Firstname { get; set; }
     public string Lastname { get; set; }
     public DateTime DateOfBirth { get; set; }
+    public IFormFile? ImagePath { get; set; }
 }

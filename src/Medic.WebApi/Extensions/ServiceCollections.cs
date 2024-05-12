@@ -31,6 +31,7 @@ public static class ServiceCollections
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddMemoryCache();
+        services.AddHttpContextAccessor();
     }
     
     

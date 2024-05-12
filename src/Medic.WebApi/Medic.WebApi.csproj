@@ -26,6 +26,7 @@
 
     <ItemGroup>
       <Folder Include="logs\" />
+      <Folder Include="wwwroot\pfp\" />
     </ItemGroup>
 
 </Project>
