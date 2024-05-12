@@ -4,6 +4,8 @@ using Medic.DataAccess.UnitOfWorks;
 using Medic.Service.Interfaces;
 using Medic.Service.Mappers;
 using Medic.Service.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -13,7 +15,8 @@ namespace Medic.WebApi.Extensions;
 public static class ServiceCollections
 {
     public static void AddServices(this IServiceCollection services)
-    { services.AddScoped<IUnitOfWork, UnitOfWork>();
+    { 
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddScoped<IBookingService, BookingService>();
@@ -28,6 +31,7 @@ public static class ServiceCollections
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddAutoMapper(typeof(MappingProfile));
         services.AddMemoryCache();
+        services.AddHttpContextAccessor();
     }
     
     

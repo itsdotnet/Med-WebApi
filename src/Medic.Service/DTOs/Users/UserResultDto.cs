@@ -1,4 +1,5 @@
 using Medic.Domain.Enums;
+using Medic.Service.DTOs.Attachments;
 
 namespace Medic.Service.DTOs.Users;
 
@@ -10,4 +11,5 @@ public class UserResultDto
     public string Email { get; set; }
     public UserRole UserRole { get; set; }
     public DateTime DateOfBirth { get; set; }
+    public AttachmentResultDto Attachment { get; set; }
 }

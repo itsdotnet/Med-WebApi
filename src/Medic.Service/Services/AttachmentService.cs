@@ -32,7 +32,7 @@ public class AttachmentService : IAttachmentService
 
     public async Task<Attachment> UploadAsync(AttachmentCreationDto dto)
     {
-        var webrootPath = Path.Combine(PathHelper.WebRootPath, "Images");
+        var webrootPath = Path.Combine(PathHelper.WebRootPath, "pfp");
 
         if (!Directory.Exists(webrootPath))
             Directory.CreateDirectory(webrootPath);

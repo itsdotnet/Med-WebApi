@@ -1,5 +1,6 @@
 using AutoMapper;
 using Medic.Domain.Entities;
+using Medic.Service.DTOs.Attachments;
 using Medic.Service.DTOs.Users;
 using Medic.Service.DTOs.Reports;
 using Medic.Service.DTOs.Doctors;
@@ -25,6 +26,8 @@ public class MappingProfile : Profile
         CreateMap<DoctorUpdateDto, Doctor>().ReverseMap();
         CreateMap<DoctorCreationDto, Doctor>().ReverseMap();
         
+        //Attachment
+        CreateMap<Attachment, AttachmentResultDto>().ReverseMap();
         
         //Message
         CreateMap<Message, MessageResultDto>().ReverseMap();
