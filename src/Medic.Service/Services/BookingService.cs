@@ -33,7 +33,7 @@ public class BookingService : IBookingService
 
     public async Task<BookResultDto> GetByIdAsync(long id)
     {
-        var booking = await _unitOfWork.BookRepository.SelectAsync(q => q.Id == id);
+        var booking = await _unitOfWork.BookRepository.SelectAsync(q => q.Id == id, includes: new string[] {"Doctor", "User"}) ;
 
         if (booking is null)
         {
@@ -45,7 +45,7 @@ public class BookingService : IBookingService
 
     public async Task<IEnumerable<BookResultDto>> GetAllAsync()
     {
-        var bookings = _unitOfWork.BookRepository.SelectAll();
+        var bookings = _unitOfWork.BookRepository.SelectAll(includes: new string[] {"Doctor", "User"});
 
         return _mapper.Map<IEnumerable<BookResultDto>>(bookings);
     }
