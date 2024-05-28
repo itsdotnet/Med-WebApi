@@ -44,6 +44,7 @@ public class BookingService : IBookingService
     }
 
     public async Task<IEnumerable<BookResultDto>> GetAllAsync()
+    
     {
         var bookings = _unitOfWork.BookRepository.SelectAll(includes: new string[] {"Doctor", "User"});
 
